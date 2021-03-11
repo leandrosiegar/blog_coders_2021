@@ -91,7 +91,7 @@
                     <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700
                       hover:bg-gray-100" role="menuitem">Tu perfil</a>
                       @can('admin.home')
-                        <a href="{{ route('admin.home') }}" class="block px-4 py-2 text-sm text-gray-700
+                        <a target="_blank" href="{{ route('admin.home') }}" class="block px-4 py-2 text-sm text-gray-700
                         hover:bg-gray-100" role="menuitem">Zona de backoffice</a>
                       @endcan
 

@@ -8,6 +8,16 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
+
+    // *******************************************
+    public function __construct() {
+        // en only le indicas los métodos a los q puede entrar con ese permiso
+        $this->middleware('can:admin.tags.index')->only('index');
+        $this->middleware('can:admin.tags.create')->only('create','store');
+        $this->middleware('can:admin.tags.edit')->only('edit','update');
+        $this->middleware('can:admin.tags.destroy')->only('destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *

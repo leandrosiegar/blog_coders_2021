@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    // ****************************************
+    public function __construct() {
+        // en only le indicas los métodos a los q puede entrar con ese permiso
+        $this->middleware('can:admin.posts.index')->only('index');
+        $this->middleware('can:admin.posts.create')->only('create','store');
+        $this->middleware('can:admin.posts.edit')->only('edit','update');
+        $this->middleware('can:admin.posts.destroy')->only('destroy');
+    }
+
     // *********************************
     public function index() {
         $posts = Post::where('status', 2)->latest('id')->paginate(8);
