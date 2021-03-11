@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 return [
 
@@ -247,6 +247,13 @@ return [
             'route'         => 'admin.users.index',
             'icon'        => 'fas fa-users',
             'can' => 'admin.users.index'
+        ],
+        [
+            'text'        => 'Roles',
+            // 'url'         => 'admin.users',
+            'route'         => 'admin.roles.index',
+            'icon'        => 'fas fa-users-cog fa-fw',
+            /* 'can' => 'admin.users.index' */
         ],
         // ['header' => 'ADMINISTRADOR'],
         [
