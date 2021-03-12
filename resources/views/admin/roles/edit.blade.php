@@ -7,7 +7,19 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    @if (session('info'))
+        <div class="alert alert-success">
+            {{  session('info') }}
+        </div>
+    @endif
+    <div class="card">
+        <div class="card-body">
+            {!! Form::model($role, array('route' => ['admin.roles.update', $role], 'files' => true, 'method' => 'PUT')) !!}
+                @include('admin.roles.partials.form')
+                {{ Form::submit('Editar role', array('type' => 'submit','class' => 'btn btn-primary', 'onclick' => '')) }}
+            {!! Form::close() !!}
+        </div>
+    </div>
 @stop
 
 @section('css')
