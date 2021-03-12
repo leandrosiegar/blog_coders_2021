@@ -5,23 +5,29 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Image;
+use Illuminate\Support\Facades\Cache;
 
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    // ****************************************
-    public function __construct() {
-        // en only le indicas los métodos a los q puede entrar con ese permiso
-        $this->middleware('can:admin.posts.index')->only('index');
-        $this->middleware('can:admin.posts.create')->only('create','store');
-        $this->middleware('can:admin.posts.edit')->only('edit','update');
-        $this->middleware('can:admin.posts.destroy')->only('destroy');
-    }
-
     // *********************************
     public function index() {
-        $posts = Post::where('status', 2)->latest('id')->paginate(8);
+        if (request()->page) {
+            $key = 'posts'.request()->page;
+        }
+        else {
+            $key = 'posts';
+        }
+
+        if (Cache::has($key)) { // si ya tengo de antes en cache almacenados los posts
+            $posts = Cache::get($key);
+        }
+        else {
+            $posts = Post::where('status', 2)->latest('id')->paginate(8);
+            Cache::put($key, $posts);
+        }
+
         return view('posts.index', compact('posts'));
     }
 
